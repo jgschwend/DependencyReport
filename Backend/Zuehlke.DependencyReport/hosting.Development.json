@@ -1,0 +1,7 @@
+﻿{
+  "ApiHosting": {
+    "Protocol": "http",
+    "Port": "1446",
+    "SSLCertThumbprint": ""
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Zuehlke.DependencyReport.Console": {
+      "commandName": "Project",
+      "commandLineArgs": "--Path=C:\\TFS\\Reserving\\GCiEReserving --ApplicationId=1"
+    }
+  }
+}
