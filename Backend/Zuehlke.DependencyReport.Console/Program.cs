@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Threading;
 using Newtonsoft.Json;
 
 namespace Zuehlke.DependencyReport.Console
@@ -11,6 +12,8 @@ namespace Zuehlke.DependencyReport.Console
     {
         static void Main(string[] args)
         {
+            var watch = System.Diagnostics.Stopwatch.StartNew();
+
             if (args.IsArgumentSet("Path") && args.IsArgumentSet("ApplicationId"))
             {
                 var path = args.GetArgumentValue("Path");
@@ -35,7 +38,7 @@ namespace Zuehlke.DependencyReport.Console
                             {
                                 var componentName = Directory.GetParent(nugetFile).Name;
 
-                                var compResponse = client.GetAsync("api/Components/" + componentName).Result;
+                                var compResponse = client.GetAsync("api/Applications/" + applicationId + "/Components/" + componentName).Result;
                                 if (compResponse.IsSuccessStatusCode)
                                 {
                                     var compResult = compResponse.Content.ReadAsStringAsync().Result;
@@ -45,14 +48,11 @@ namespace Zuehlke.DependencyReport.Console
                                 {
                                     ComponentDto componentDto = new ComponentDto()
                                     {
-                                        Application = new ApplicationDto() {Id = long.Parse(applicationId)},
-                                        Description = null,
-                                        Id = 0,
                                         Name = componentName
                                     };
 
                                     var content = new StringContent(JsonConvert.SerializeObject(componentDto), Encoding.UTF8, "application/json");
-                                    var postResult = client.PostAsync("api/Components", content).Result;
+                                    var postResult = client.PostAsync("api/Applications/" + applicationId + "/Components", content).Result;
 
                                     var bla = postResult.Content.ReadAsStringAsync().Result;
                                 }
@@ -81,6 +81,9 @@ namespace Zuehlke.DependencyReport.Console
                 }
             }
 
+            watch.Stop();
+
+            System.Console.WriteLine("I'm done after {0} seconds", watch.Elapsed.TotalSeconds);
             System.Console.ReadLine();
         }
     }

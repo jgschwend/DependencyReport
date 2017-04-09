@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using Microsoft.EntityFrameworkCore;
 using Zuehlke.DependencyReport.DataAccess;
 
 
@@ -104,9 +105,51 @@ namespace Zuehlke.DependencyReport
         [HttpGet("{id}/Components")]
         public IActionResult GetComponentsByApplicationId(int id)
         {
-            var components = _context.Components.Where(x => x.Application.Id == id);
+            var components = _context.Components.Where(x => x.Application.Id == id).Include(x => x.Application);
 
             return Ok(Mapper.Map<IEnumerable<ComponentDto>>(components));
+        }
+
+
+
+        [SwaggerOperation(nameof(GetComponentByNameAndApplicationId))]
+        [SwaggerResponse((int)HttpStatusCode.OK, typeof(ComponentDto))]
+        [SwaggerResponse((int)HttpStatusCode.NotFound)]
+        [HttpGet("{id}/Components/{name}")]
+        public IActionResult GetComponentByNameAndApplicationId(int id, string name)
+        {
+            var component = _context.Components.Where(c => c.Application.Id == id && c.Name.ToLower() == name.ToLower()).FirstOrDefault();
+
+            if (component != null)
+            {
+                return Ok(Mapper.Map<ComponentDto>(component));
+            }
+            return NotFound();
+        }
+
+        [SwaggerOperation(nameof(CreateComponentsByApplicationId))]
+        [SwaggerResponse((int)HttpStatusCode.OK, typeof(ComponentDto))]
+        [SwaggerResponse((int)HttpStatusCode.NotFound)]
+        [HttpPost("{id}/Components")]
+        public IActionResult CreateComponentsByApplicationId(int id, [FromBody] ComponentDto componentDto)
+        {
+            var application = _context.Applications.Where(x => x.Id == id).FirstOrDefault();
+
+            if (application != null)
+            {
+                Component component = new Component()
+                {
+                    Name = componentDto.Name,
+                    Description = componentDto.Description,
+                    Application = application
+                };
+
+                _context.Components.Add(component);
+                _context.SaveChanges();
+
+                return Ok(Mapper.Map<ComponentDto>(component));
+            }
+            return NotFound();
         }
 
         [SwaggerOperation(nameof(GetReportsByApplicationId))]
