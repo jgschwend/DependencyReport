@@ -8,7 +8,8 @@ namespace Zuehlke.DependencyReport
         {
             CreateMap<Application, ApplicationDto>();
             CreateMap<ApplicationDto, Application>()
-                
+                .ForMember(d => d.Id, opt => opt.Ignore());
+
         }
     }
 }
