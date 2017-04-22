@@ -66,9 +66,6 @@ namespace Zuehlke.DependencyReport.Migrations
 
                     b.Property<string>("PackageName");
 
-                    b.Property<TimeSpan>("RelativeAge")
-                        .ValueGeneratedOnAddOrUpdate();
-
                     b.Property<long?>("ReportId");
 
                     b.Property<int>("Source");

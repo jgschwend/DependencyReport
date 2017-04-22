@@ -77,7 +77,6 @@ namespace Zuehlke.DependencyReport.Migrations
                     LatestReleaseDate = table.Column<DateTime>(nullable: false),
                     LatestVersion = table.Column<string>(nullable: true),
                     PackageName = table.Column<string>(nullable: true),
-                    RelativeAge = table.Column<TimeSpan>(nullable: false),
                     ReportId = table.Column<long>(nullable: true),
                     Source = table.Column<int>(nullable: false),
                     Type = table.Column<int>(nullable: false)

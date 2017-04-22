@@ -24,6 +24,6 @@ namespace Zuehlke.DependencyReport
 
         public DateTime LatestReleaseDate { get; set; }
 
-        public TimeSpan RelativeAge { get; set; }
+        /*public TimeSpan RelativeAge { get; set; }*/
     }
 }

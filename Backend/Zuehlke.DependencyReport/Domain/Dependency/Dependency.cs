@@ -26,11 +26,11 @@ namespace Zuehlke.DependencyReport
 
         public DateTime LatestReleaseDate { get; set; }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        /*[DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public TimeSpan RelativeAge
         {
             get { return LatestReleaseDate.TimeOfDay - CurrentReleaseDate.TimeOfDay; }
             private set { }
-        }
+        }*/
     }
 }

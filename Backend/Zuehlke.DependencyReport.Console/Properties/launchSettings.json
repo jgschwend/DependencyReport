@@ -2,7 +2,7 @@
   "profiles": {
     "Zuehlke.DependencyReport.Console": {
       "commandName": "Project",
-      "commandLineArgs": "--Path=C:\\TFS\\Reserving\\GCiEReserving --ApplicationId=1"
+      "commandLineArgs": "--Path=C:\\TFS\\Reserving\\GCiEReserving --ApplicationId=1 --BuildNumber=Release_Deployment.1.7.0.170418018"
     }
   }
 }

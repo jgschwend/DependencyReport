@@ -9,7 +9,7 @@ using Zuehlke.DependencyReport;
 namespace Zuehlke.DependencyReport.Migrations
 {
     [DbContext(typeof(DependencyReportContext))]
-    [Migration("20170408103721_Init")]
+    [Migration("20170422125217_Init")]
     partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -66,9 +66,6 @@ namespace Zuehlke.DependencyReport.Migrations
                     b.Property<string>("LatestVersion");
 
                     b.Property<string>("PackageName");
-
-                    b.Property<TimeSpan>("RelativeAge")
-                        .ValueGeneratedOnAddOrUpdate();
 
                     b.Property<long?>("ReportId");
 
