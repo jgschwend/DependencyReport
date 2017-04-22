@@ -7,7 +7,8 @@ namespace Zuehlke.DependencyReport
         public ComponentMapProfile()
         {
             CreateMap<Component, ComponentDto>();
-            CreateMap<ComponentDto, Component>();
+            CreateMap<ComponentDto, Component>()
+                .ForMember(d => d.Id, opt => opt.Ignore());
         }
     }
 }

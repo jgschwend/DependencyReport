@@ -11,7 +11,8 @@ namespace Zuehlke.DependencyReport
         public ReportMapProfile()
         {
             CreateMap<Report, ReportDto>();
-            CreateMap<ReportDto, Report>();
+            CreateMap<ReportDto, Report>()
+                .ForMember(d => d.Id, opt => opt.Ignore());
         }
     }
 }
